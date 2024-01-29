@@ -6,7 +6,10 @@ project(CalculatorProject)
 set(CMAKE_CXX_STANDARD 11)
 
 # Include directories
-include_directories(include)
+target_include_directories(calculator_lib PUBLIC include)
+
+add_dependencies(test_calculator calculator_lib)
+
 
 # Add the source files
 add_library(calculator_lib src/calculator.cpp)
@@ -19,10 +22,10 @@ target_link_libraries(test_calculator PRIVATE calculator_lib)
 include(FetchContent)
 FetchContent_Declare(
     googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG release-1.11.0
+    URL https://github.com/google/googletest/archive/release-1.11.0.tar.gz
 )
 FetchContent_MakeAvailable(googletest)
+
 target_link_libraries(test_calculator PRIVATE gtest gtest_main)
 
 # Enable CMake testing
