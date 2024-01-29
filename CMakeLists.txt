@@ -16,13 +16,15 @@ add_executable(test_calculator tests/test_calculator.cpp)
 target_link_libraries(test_calculator PRIVATE calculator_lib)
 
 # Include Google Test
-include(FetchContent)
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG release-1.11.0
-)
-FetchContent_MakeAvailable(googletest)
+if(NOT TARGET gtest)
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG release-1.11.0
+    )
+    FetchContent_MakeAvailable(googletest)
+endif()    
 target_link_libraries(test_calculator PRIVATE gtest gtest_main)
 
 # Enable CMake testing
