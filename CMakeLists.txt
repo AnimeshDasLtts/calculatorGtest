@@ -13,19 +13,13 @@ add_library(calculator_lib src/calculator.cpp)
 
 # Add the executable for the unit tests
 add_executable(test_calculator tests/test_calculator.cpp)
+
+# Link the calculator library to the test executable
 target_link_libraries(test_calculator PRIVATE calculator_lib)
 
-# Include Google Test
-if(NOT TARGET gtest)
-    include(FetchContent)
-    FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG release-1.11.0
-    )
-    FetchContent_MakeAvailable(googletest)
-endif()    
-target_link_libraries(test_calculator PRIVATE gtest gtest_main)
+# Find and link Google Test
+find_package(GTest REQUIRED)
+target_link_libraries(test_calculator PRIVATE GTest::GTest GTest::Main)
 
 # Enable CMake testing
 enable_testing()
