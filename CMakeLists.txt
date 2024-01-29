@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 11)
 # Include directories
 target_include_directories(calculator_lib PUBLIC include)
 
-add_dependencies(test_calculator calculator_lib)
+#add_dependencies(test_calculator calculator_lib)
 
 
 # Add the source files
